@@ -91,6 +91,7 @@ The response will return the prediction result:
   - app.js                    # Hapi.js server configuration
   - inference.js              # TensorFlow.js inference functions
 - .gitignore                  # Git ignore file
+- node_modules
 - package.json                # Project metadata and dependencies
 - README.md                   # Project documentation
 ```
