@@ -1,133 +1,96 @@
 # ML Web Server
 
-A machine learning web server built using JavaScript (Node.js). This project provides APIs for interacting with machine learning models, enabling users to perform predictions, data analysis, and other inference tasks.
-
-## Table of Contents
-
-- [Description](#description)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Endpoints](#endpoints)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
-## Description
-
-This project implements a Node.js-based machine learning web server that exposes APIs for performing model inference. It is designed for efficiency, scalability, and simplicity, making it easy to integrate ML models into web applications.
+This is a simple web server built with Hapi.js that serves a machine learning model using TensorFlow.js. The server allows users to upload an image, and it predicts whether the image represents "rock", "paper", or "scissors" based on the trained model.
 
 ## Features
 
-- RESTful API for ML model inference
-- Modular structure for easy model integration
-- Docker support for seamless deployment
-- Scalable for production environments
-- Logging and error handling for reliability
+- **Upload an image**: Users can upload an image via a `POST` request to the `/predicts` endpoint.
+- **Model prediction**: The server uses a pre-trained TensorFlow.js model to classify the uploaded image into one of three categories: "rock", "paper", or "scissors".
+- **Model file storage**: The model is stored in the `models` folder and is loaded into the server at runtime.
 
 ## Technologies Used
 
-- **Backend**: Node.js, Express.js
-- **Machine Learning**: TensorFlow.js, Brain.js (or any other JavaScript-based ML library used in your project)
-- **Others**: Docker, JSON for API communication
+- [Hapi.js](https://hapi.dev/): Web framework for building the server.
+- [TensorFlow.js](https://www.tensorflow.org/js): JavaScript library for training and running machine learning models in the browser and Node.js.
+- [Node.js](https://nodejs.org/): JavaScript runtime used for server-side development.
 
-## Installation
+## Setup
 
-To set up the project locally, follow these steps:
+To get started with this project locally, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/ml-web-server.git
+### 1. Clone the repository
 
-2. Install dependencies:
+```bash
+git clone https://github.com/your-username/ml-web-server.git
+```
 
-   ```bash
-   npm install
-   ```
+### 2. Install dependencies
+
+```bash
+cd ml-web-server
+npm install
+```
    
-3. Start the server:
+### 3. Prepare the model files:
 
-   ```bash
-   npm run start
-   ```
+Make sure to place the model files (from your trained model) in the models directory. The required files are:
 
-## Usage
+- `group1-shard1of7.bin`
+- `group1-shard2of7.bin`
+- `group1-shard3of7.bin`
+- `group1-shard4of7.bin`
+- `group1-shard5of7.bin`
+- `group1-shard6of7.bin`
+- `group1-shard7of7.bin`
+- `model.json`
 
-Once the server is running, you can access the API locally at:
+### 4. Run the application
 
-```bash
-http://localhost:3000
-```
-
-Example usage with `curl`:
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"input": [1.2, 3.4, 5.6]}' http://127.0.0.1:3000/predict
-```
-
-## Docker (Optional)
-
-To build and run the server using Docker:
+To start the server in development mode, run:
 
 ```bash
-docker build -t ml-web-server .
-docker run -p 3000:3000 ml-web-server
+npm run start
 ```
 
-## Endpoints
+For production mode, use:
 
-### POST /predict
+```bash
+npm run start-prod
+```
 
-- Description: Perform predictions using the ML model.
-- Request Body:
-  ```json
-  {
-  "input": [1.2, 3.4, 5.6]
-  }
-  ```
-- Response:
-  ```json
-  {
-  "prediction": [0.9, 0.1]
-  }
-  ```
+The server will start at `http://localhost:3000`.
 
-### GET /health
+### 5. Test the model prediction endpoint
 
-- Description: Check the server's health.
-- Response:
-  ```json
-  {
-  "status": "OK"
-  }
-  ```
+Send a `POST` request to `/predicts` with a file upload:
 
-## Contributing
+```bash
+curl -X POST http://localhost:3000/predicts -F "image=@path/to/your/image.jpg"
+```
+The response will return the prediction result:
 
-Contributions are welcome! To contribute:
+```json
+{
+  "result": "rock"
+}
+```
 
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m 'Add a new feature'
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request
+## Folder Structure
 
-## License
-
-This project is licensed under the MIT License.
-
-## Contact
-
-For questions or support, please contact:
-- Email: aloysiusandrenhm@gmail.com
-- GitHub: Sealonk
+```markdown
+- models/
+  - group1-shard1of7.bin      # Model file parts
+  - group1-shard2of7.bin
+  - group1-shard3of7.bin
+  - group1-shard4of7.bin
+  - group1-shard5of7.bin
+  - group1-shard6of7.bin
+  - group1-shard7of7.bin
+  - model.json                # Model metadata
+- src/
+  - app.js                    # Hapi.js server configuration
+  - inference.js              # TensorFlow.js inference functions
+- .gitignore                  # Git ignore file
+- package.json                # Project metadata and dependencies
+- README.md                   # Project documentation
+```
