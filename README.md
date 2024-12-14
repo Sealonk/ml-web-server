@@ -87,11 +87,11 @@ The response will return the prediction result:
   - group1-shard6of7.bin
   - group1-shard7of7.bin
   - model.json                # Model metadata
+- node_modules/
 - src/
   - app.js                    # Hapi.js server configuration
   - inference.js              # TensorFlow.js inference functions
 - .gitignore                  # Git ignore file
-- node_modules
 - package.json                # Project metadata and dependencies
 - README.md                   # Project documentation
 ```
