@@ -93,5 +93,6 @@ The response will return the prediction result:
   - inference.js              # TensorFlow.js inference functions
 - .gitignore                  # Git ignore file
 - package.json                # Project metadata and dependencies
+- package-lock.json           # Lock file for npm dependencies
 - README.md                   # Project documentation
 ```
