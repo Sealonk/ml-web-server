@@ -21,7 +21,7 @@ To get started with this project locally, follow these steps:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ml-web-server.git
+git clone https://github.com/Sealonk/ml-web-server.git
 ```
 
 ### 2. Install dependencies
